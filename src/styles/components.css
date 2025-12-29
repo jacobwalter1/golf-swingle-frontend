@@ -1,0 +1,646 @@
+/* Header */
+.header {
+	background-color: var(--bg-secondary);
+	border-bottom: 1px solid var(--border-color);
+	padding: var(--spacing-lg);
+	position: sticky;
+	top: 0;
+	z-index: 50;
+}
+
+.header-content {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.header-left {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-md);
+}
+
+.header-right {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-md);
+}
+
+.logo {
+	font-size: 1.75rem;
+	font-weight: 700;
+	color: var(--accent-primary);
+	margin: 0;
+}
+
+.tagline {
+	font-size: 0.875rem;
+	color: var(--text-secondary);
+}
+
+.difficulty-selector {
+	background-color: var(--bg-tertiary);
+	color: var(--text-primary);
+	padding: var(--spacing-sm) var(--spacing-md);
+	border-radius: var(--radius-md);
+	font-weight: 600;
+	border: 1px solid var(--border-color);
+	cursor: pointer;
+}
+
+.difficulty-selector:hover {
+	background-color: var(--bg-hover);
+}
+
+.stats-button {
+	background-color: var(--bg-tertiary);
+	color: var(--text-primary);
+	padding: var(--spacing-sm) var(--spacing-md);
+	border-radius: var(--radius-md);
+	font-weight: 600;
+}
+
+.stats-button:hover {
+	background-color: var(--bg-hover);
+}
+
+/* Video Player */
+.video-section {
+	margin-bottom: var(--spacing-xl);
+}
+
+.video-player {
+	background-color: var(--bg-secondary);
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	box-shadow: var(--shadow-lg);
+}
+
+.video {
+	width: 100%;
+	max-height: 600px;
+	display: block;
+	background-color: #000;
+}
+
+.video-info {
+	padding: var(--spacing-md);
+	background-color: var(--bg-tertiary);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.video-level {
+	font-size: 0.875rem;
+	color: var(--text-secondary);
+	font-weight: 600;
+}
+
+.video-error {
+	min-height: 400px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--bg-tertiary);
+	color: var(--text-secondary);
+}
+
+.video-error-details {
+	font-size: 0.875rem;
+	margin-top: var(--spacing-sm);
+}
+
+/* Game Info */
+.game-info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: var(--spacing-lg);
+	padding: var(--spacing-md);
+	background-color: var(--bg-secondary);
+	border-radius: var(--radius-md);
+}
+
+.mode-indicator,
+.guess-counter {
+	font-size: 0.875rem;
+}
+
+.mode-label {
+	color: var(--text-secondary);
+}
+
+.mode-value {
+	color: var(--accent-primary);
+	font-weight: 700;
+	margin: 0 var(--spacing-xs);
+}
+
+.mode-description {
+	color: var(--text-tertiary);
+	font-size: 0.8rem;
+}
+
+/* Golfer Autocomplete */
+.guess-section {
+	margin-bottom: var(--spacing-xl);
+}
+
+.golfer-autocomplete {
+	position: relative;
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.golfer-input {
+	width: 100%;
+	padding: var(--spacing-md);
+	background-color: var(--bg-secondary);
+	border: 2px solid var(--border-color);
+	border-radius: var(--radius-md);
+	color: var(--text-primary);
+	font-size: 1rem;
+	transition: border-color 0.2s;
+}
+
+.golfer-input:focus {
+	border-color: var(--accent-primary);
+}
+
+.golfer-input:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.suggestions {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	margin-top: var(--spacing-xs);
+	background-color: var(--bg-secondary);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+	max-height: 300px;
+	overflow-y: auto;
+	z-index: var(--z-dropdown);
+	box-shadow: var(--shadow-lg);
+}
+
+.suggestion {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-md);
+	padding: var(--spacing-md);
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.suggestion:hover,
+.suggestion.selected {
+	background-color: var(--bg-hover);
+}
+
+.suggestion-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-full);
+	object-fit: cover;
+	background-color: var(--bg-tertiary);
+}
+
+.suggestion-name {
+	font-weight: 500;
+}
+
+/* Guess History */
+.guess-history {
+	margin-bottom: var(--spacing-xl);
+}
+
+.guess-header {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	gap: var(--spacing-md);
+	padding: var(--spacing-md);
+	background-color: var(--bg-secondary);
+	border-radius: var(--radius-md) var(--radius-md) 0 0;
+	font-weight: 700;
+	font-size: 0.875rem;
+	color: var(--text-secondary);
+}
+
+.header-stats {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: var(--spacing-sm);
+	text-align: center;
+}
+
+.guess-list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-sm);
+}
+
+.guess-row {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	gap: var(--spacing-md);
+	padding: var(--spacing-md);
+	background-color: var(--bg-secondary);
+	border-radius: var(--radius-md);
+	align-items: center;
+}
+
+.guess-row.correct-guess {
+	border: 2px solid var(--accent-green);
+	background-color: rgba(46, 160, 67, 0.1);
+}
+
+.guess-golfer {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-md);
+}
+
+.golfer-avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: var(--radius-full);
+	object-fit: cover;
+	background-color: var(--bg-tertiary);
+}
+
+.golfer-name {
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+
+.guess-stats {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: var(--spacing-sm);
+}
+
+/* Stat Cell */
+.stat-cell {
+	padding: 6px;
+	border-radius: var(--radius-sm);
+	text-align: center;
+	font-size: 1rem;
+	font-weight: 600;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1px;
+	min-height: 80px;
+	justify-content: center;
+	flex: 1;
+}
+
+.stat-cell.correct {
+	background-color: var(--accent-green);
+	color: white;
+}
+
+.stat-cell.wrong {
+	background-color: var(--bg-tertiary);
+	color: var(--text-tertiary);
+}
+
+.stat-cell.higher,
+.stat-cell.lower {
+	background-color: var(--accent-yellow);
+	color: var(--bg-primary);
+}
+
+.stat-arrow {
+	font-size: 1.2rem;
+	font-weight: 700;
+}
+
+.stat-value {
+	word-break: break-word;
+}
+
+/* Show Result Button */
+.show-result-button {
+	display: block;
+	margin: var(--spacing-xl) auto;
+	padding: var(--spacing-md) var(--spacing-xl);
+	background-color: var(--accent-primary);
+	color: white;
+	border-radius: var(--radius-md);
+	font-weight: 700;
+	font-size: 1rem;
+}
+
+.show-result-button:hover {
+	background-color: var(--accent-hover);
+}
+
+/* Modal */
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.75);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: var(--z-modal);
+	padding: var(--spacing-md);
+}
+
+.modal {
+	background-color: var(--bg-secondary);
+	border-radius: var(--radius-lg);
+	max-width: 600px;
+	width: 100%;
+	max-height: 90vh;
+	overflow-y: auto;
+	box-shadow: var(--shadow-xl);
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: var(--spacing-lg);
+	border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+	margin: 0;
+	font-size: 1.5rem;
+}
+
+.close-button {
+	background: none;
+	color: var(--text-secondary);
+	font-size: 1.5rem;
+	padding: var(--spacing-sm);
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-full);
+}
+
+.close-button:hover {
+	background-color: var(--bg-hover);
+	color: var(--text-primary);
+}
+
+.modal-content {
+	padding: var(--spacing-lg);
+}
+
+/* Stats Modal */
+.stats-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: var(--spacing-md);
+	margin-bottom: var(--spacing-xl);
+}
+
+.stat-box {
+	text-align: center;
+	padding: var(--spacing-md);
+	background-color: var(--bg-tertiary);
+	border-radius: var(--radius-md);
+}
+
+.modal-stats .stat-value {
+	font-size: 2rem;
+	font-weight: 700;
+	color: var(--accent-primary);
+}
+
+.stat-label {
+	font-size: 0.875rem;
+	color: var(--text-secondary);
+	margin-top: var(--spacing-xs);
+}
+
+.guess-distribution h3 {
+	margin-bottom: var(--spacing-md);
+	font-size: 1.125rem;
+}
+
+.distribution-row {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-md);
+	margin-bottom: var(--spacing-sm);
+}
+
+.distribution-label {
+	font-weight: 700;
+	min-width: 20px;
+}
+
+.distribution-bar-container {
+	flex: 1;
+	background-color: var(--bg-tertiary);
+	border-radius: var(--radius-sm);
+	height: 28px;
+	position: relative;
+}
+
+.distribution-bar {
+	background-color: var(--accent-primary);
+	height: 100%;
+	border-radius: var(--radius-sm);
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding-right: var(--spacing-sm);
+	transition: width 0.3s ease;
+}
+
+.distribution-count {
+	color: white;
+	font-weight: 700;
+	font-size: 0.875rem;
+}
+
+/* Game Over Modal */
+.game-over-modal {
+	max-width: 500px;
+}
+
+.win-message,
+.lose-message {
+	text-align: center;
+	margin-bottom: var(--spacing-xl);
+}
+
+.congrats {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: var(--accent-green);
+	margin-bottom: var(--spacing-sm);
+}
+
+.guess-count {
+	font-size: 1.125rem;
+	color: var(--text-secondary);
+}
+
+.better-luck {
+	font-size: 1.25rem;
+	color: var(--text-secondary);
+}
+
+.answer-reveal {
+	text-align: center;
+	padding: var(--spacing-lg);
+	background-color: var(--bg-tertiary);
+	border-radius: var(--radius-md);
+	margin-bottom: var(--spacing-xl);
+}
+
+.answer-avatar {
+	width: 100px;
+	height: 100px;
+	border-radius: var(--radius-full);
+	object-fit: cover;
+	margin-bottom: var(--spacing-md);
+	background-color: var(--bg-secondary);
+}
+
+.answer-name {
+	font-size: 1.5rem;
+	margin-bottom: var(--spacing-md);
+}
+
+.answer-stats {
+	text-align: left;
+	display: inline-block;
+}
+
+.answer-stats p {
+	color: var(--text-secondary);
+	margin-bottom: var(--spacing-xs);
+}
+
+.mode-selector {
+	margin-bottom: var(--spacing-xl);
+}
+
+.mode-label {
+	display: block;
+	margin-bottom: var(--spacing-sm);
+	font-weight: 600;
+	color: var(--text-secondary);
+}
+
+.mode-buttons {
+	display: flex;
+	gap: var(--spacing-sm);
+}
+
+.mode-button {
+	flex: 1;
+	padding: var(--spacing-md);
+	background-color: var(--bg-tertiary);
+	color: var(--text-primary);
+	border-radius: var(--radius-md);
+	font-weight: 600;
+	border: 2px solid transparent;
+}
+
+.mode-button:hover {
+	background-color: var(--bg-hover);
+}
+
+.mode-button.active {
+	border-color: var(--accent-primary);
+	background-color: rgba(46, 160, 67, 0.2);
+}
+
+.difficulty-played {
+	text-align: center;
+	padding: var(--spacing-md);
+	background-color: var(--bg-tertiary);
+	border-radius: var(--radius-md);
+	margin: var(--spacing-md) 0;
+}
+
+.difficulty-played p {
+	margin: 0;
+	color: var(--text-secondary);
+}
+
+.difficulty-played strong {
+	color: var(--accent-primary);
+}
+
+.next-game {
+	text-align: center;
+	color: var(--text-secondary);
+	font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.header-content {
+		flex-direction: column;
+		gap: var(--spacing-md);
+		align-items: flex-start;
+	}
+
+	.tagline {
+		margin-left: 0;
+	}
+
+	.guess-header,
+	.guess-row {
+		grid-template-columns: 1fr;
+	}
+
+	.header-stats,
+	.guess-stats {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.stats-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.mode-buttons {
+		flex-direction: column;
+	}
+}
+
+@media (max-width: 480px) {
+	.logo {
+		font-size: 1.5rem;
+	}
+
+	.header-stats,
+	.guess-stats {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.stat-cell {
+		font-size: 0.65rem;
+		padding: var(--spacing-xs);
+		min-height: 40px;
+	}
+
+	.golfer-avatar {
+		width: 40px;
+		height: 40px;
+	}
+
+	.golfer-name {
+		font-size: 0.875rem;
+	}
+}

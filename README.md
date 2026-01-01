@@ -233,10 +233,12 @@ Backend URLs are configured in `.env.local`.
 -   Check Lambda function logs in CloudWatch
 -   Ensure CORS is configured on Lambda function URLs
 
-## 📝 License
 
-MIT
+### Todo
 
-## 🤝 Contributing
-
-Contributions welcome! Feel free to open issues or submit pull requests.
+- Change the comparison to only make close answers orange
+- Create an unlimited mode that will allow users to go to past puzzles
+- Look into adding more golfers possibly even women and youtube golfers.
+- Create function that will show user data from the backend
+- Add authorization and profiles
+- 

@@ -3,50 +3,25 @@ import { COMPARISON } from "./constants";
 /**
  * Compare two golfers and return comparison results for each stat
  */
-export function compareGolfers(guess, answer) {
-	const results = {};
-
-	// Age comparison
-	const guessAge = parseInt(guess.age) || 0;
-	const answerAge = parseInt(answer.age) || 0;
-
-	if (guessAge === answerAge) {
-		results.age = COMPARISON.CORRECT;
-	} else if (guessAge < answerAge) {
-		results.age = COMPARISON.HIGHER;
-	} else {
-		results.age = COMPARISON.LOWER;
-	}
-
-	// Country comparison (exact match)
-	results.country = guess.country === answer.country ? COMPARISON.CORRECT : COMPARISON.WRONG;
-
-	// Turned Pro year comparison
-	const guessPro = parseInt(guess.turnedPro) || 0;
-	const answerPro = parseInt(answer.turnedPro) || 0;
-
-	if (guessPro === answerPro || !guessPro || !answerPro) {
-		results.turnedPro = guessPro === answerPro && guessPro ? COMPARISON.CORRECT : COMPARISON.WRONG;
-	} else if (guessPro < answerPro) {
-		results.turnedPro = COMPARISON.HIGHER;
-	} else {
-		results.turnedPro = COMPARISON.LOWER;
-	}
-
-	// Education comparison (exact match, null/empty values are considered equal)
-	const guessEdu = guess.education || null;
-	const answerEdu = answer.education || null;
-	results.education = guessEdu === answerEdu ? COMPARISON.CORRECT : COMPARISON.WRONG;
-
-	// Is Active comparison (exact match)
-	results.isActive = guess.isActive === answer.isActive ? COMPARISON.CORRECT : COMPARISON.WRONG;
-
-	return results;
+export function compareGolfers(guessedGolfer, targetGolfer) {
+  return {
+    age: compareNumbers(guessedGolfer.age, targetGolfer.age, 3),
+    country: compareExact(guessedGolfer.country, targetGolfer.country),
+    turnedPro: compareNumbers(guessedGolfer.turnedPro, targetGolfer.turnedPro, 3),
+    education: compareExact(guessedGolfer.education, targetGolfer.education),
+    isActive: compareExact(guessedGolfer.isActive, targetGolfer.isActive),
+  };
 }
 
-/**
- * Check if guess is correct (all comparisons are correct)
- */
-export function isCorrectGuess(comparisonResults) {
-	return Object.values(comparisonResults).every((result) => result === COMPARISON.CORRECT);
+function compareNumbers(guessedValue, targetValue, closeThreshold = 3) {
+  if (!guessedValue || !targetValue) return COMPARISON.WRONG;
+  if (guessedValue === targetValue) return COMPARISON.CORRECT;
+  const diff = Math.abs(guessedValue - targetValue);
+  if (diff <= closeThreshold) return guessedValue < targetValue ? COMPARISON.CLOSELOWER : COMPARISON.CLOSEHIGHER;
+  return guessedValue < targetValue ? COMPARISON.HIGHER : COMPARISON.LOWER;
+}
+
+function compareExact(guessedValue, targetValue) {
+  if (!guessedValue || !targetValue) return COMPARISON.WRONG;
+  return guessedValue === targetValue ? COMPARISON.CORRECT : COMPARISON.WRONG;
 }

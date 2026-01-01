@@ -3,6 +3,7 @@ export const GAME_MODES = {
 	HARD: "hard",
 	NORMAL: "normal",
 	EASY: "easy",
+	UNLIMITED: "unlimited",
 };
 
 export const MODE_CONFIG = {
@@ -24,6 +25,12 @@ export const MODE_CONFIG = {
 		label: "Easy",
 		description: "Blurred face only",
 	},
+	[GAME_MODES.UNLIMITED]: {
+		maxGuesses: 6,
+		videoLevels: [1, 1, 1, 2, 2, 2], // Same as normal mode
+		label: "Unlimited",
+		description: "Practice with past puzzles",
+	},
 };
 
 // Video levels
@@ -35,6 +42,8 @@ export const VIDEO_LEVELS = {
 
 // Comparison result indicators
 export const COMPARISON = {
+	CLOSEHIGHER: "close-higher",
+	CLOSELOWER: "close-lower",
 	CORRECT: "correct",
 	HIGHER: "higher",
 	LOWER: "lower",
@@ -46,6 +55,9 @@ export const STORAGE_KEYS = {
 	USER_ID: "golf_wordle_user_id",
 	GAME_MODE: "golf_wordle_mode",
 	CURRENT_GAME: "golf_wordle_current_game",
+	UNLIMITED_GAME: "golf_wordle_unlimited_game",
+	UNLIMITED_USED_DATES: "golf_wordle_unlimited_used_dates",
+	UNLIMITED_USED_GOLFERS: "golf_wordle_unlimited_used",
 	USER_STATS: "golf_wordle_stats",
 };
 

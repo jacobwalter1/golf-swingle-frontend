@@ -6,6 +6,8 @@ export function StatCell({ field, value, comparison }) {
 
 	const getClassName = () => {
 		const base = "stat-cell";
+		if (comparison === COMPARISON.CLOSEHIGHER) return `${base} close-higher`;
+		if (comparison === COMPARISON.CLOSELOWER) return `${base} close-lower`;
 		if (comparison === COMPARISON.CORRECT) return `${base} correct`;
 		if (comparison === COMPARISON.HIGHER) return `${base} higher`;
 		if (comparison === COMPARISON.LOWER) return `${base} lower`;
@@ -13,6 +15,8 @@ export function StatCell({ field, value, comparison }) {
 	};
 
 	const getArrow = () => {
+		if (comparison === COMPARISON.CLOSEHIGHER) return "↑";
+		if (comparison === COMPARISON.CLOSELOWER) return "↓";
 		if (comparison === COMPARISON.HIGHER) return "↑";
 		if (comparison === COMPARISON.LOWER) return "↓";
 		return "";

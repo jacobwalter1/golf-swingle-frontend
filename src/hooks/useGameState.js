@@ -10,9 +10,10 @@ import { compareGolfers } from "../utils/comparison";
 /**
  * Hook to manage game state
  */
-export function useGameState(userId, puzzle, answerGolfer) {
+export function useGameState(userId, puzzle, answerGolfer, isUnlimitedMode = false) {
+	const storageKey = isUnlimitedMode ? STORAGE_KEYS.UNLIMITED_GAME : STORAGE_KEYS.CURRENT_GAME;
 	const [gameMode, setGameMode] = useLocalStorage(STORAGE_KEYS.GAME_MODE, GAME_MODES.NORMAL);
-	const [currentGame, setCurrentGame] = useLocalStorage(STORAGE_KEYS.CURRENT_GAME, null);
+	const [currentGame, setCurrentGame] = useLocalStorage(storageKey, null);
 
 	const [guesses, setGuesses] = useState([]);
 	const [gameOver, setGameOver] = useState(false);
@@ -23,14 +24,46 @@ export function useGameState(userId, puzzle, answerGolfer) {
 	const modeConfig = MODE_CONFIG[gameMode];
 	const maxGuesses = modeConfig?.maxGuesses || 6;
 
+	// Reload saved game when mode changes
+	useEffect(() => {
+		// Manually reload from localStorage when storage key changes
+		try {
+			const savedGame = localStorage.getItem(storageKey);
+			if (savedGame) {
+				const parsedGame = JSON.parse(savedGame);
+				setCurrentGame(parsedGame);
+			} else {
+				setCurrentGame(null);
+			}
+		} catch (error) {
+			console.error("Error loading saved game:", error);
+			setCurrentGame(null);
+		}
+	}, [storageKey, setCurrentGame]);
+
 	// Load game state from storage
 	useEffect(() => {
-		if (!puzzle || !currentGame) return;
+		if (!puzzle) {
+			// No puzzle, reset state
+			setGuesses([]);
+			setGameOver(false);
+			setWon(false);
+			setCurrentLevel(1);
+			return;
+		}
 
-		const today = getTodayDate();
+		// If no saved game, start fresh
+		if (!currentGame) {
+			setGuesses([]);
+			setGameOver(false);
+			setWon(false);
+			setCurrentLevel(1);
+			return;
+		}
 
-		// Check if saved game is for today
-		if (currentGame.date === today && currentGame.puzzleGolferId === puzzle.golferId) {
+		// Check if saved game matches current puzzle
+		if (currentGame.puzzleGolferId === puzzle.golferId && currentGame.date === puzzle.date) {
+			// Load saved game state
 			setGuesses(currentGame.guesses || []);
 			setGameOver(currentGame.gameOver || false);
 			setWon(currentGame.won || false);
@@ -39,14 +72,14 @@ export function useGameState(userId, puzzle, answerGolfer) {
 			const level = getCurrentVideoLevel(gameMode, currentGame.guesses?.length || 0);
 			setCurrentLevel(level);
 		} else {
-			// New day, reset game
+			// Different puzzle, reset game
 			setCurrentGame(null);
 			setGuesses([]);
 			setGameOver(false);
 			setWon(false);
 			setCurrentLevel(1);
 		}
-	}, [puzzle, currentGame, gameMode, setCurrentGame]);
+	}, [puzzle?.golferId, puzzle?.date, currentGame, gameMode, setCurrentGame]);
 
 	// Submit a guess
 	const submitGuess = useCallback(
@@ -67,11 +100,11 @@ export function useGameState(userId, puzzle, answerGolfer) {
 				const newGuesses = [...guesses, guessObject];
 				const guessNumber = newGuesses.length;
 
-				// Get array of just the golfer IDs for backend
-				const guessedGolferIds = newGuesses.map((g) => g.golfer.playerId);
+				// Check if the guess is correct
+				const isCorrect = guessGolfer.playerId === answerGolfer.playerId;
 
-				// Submit to backend
-				const guessResult = await submitGuessAPI(userId, guessGolfer.playerId, guessNumber, guessedGolferIds);
+				// Check if game is over (correct guess or max guesses reached)
+				const isGameOver = isCorrect || guessNumber >= maxGuesses;
 
 				// Update local state
 				setGuesses(newGuesses);
@@ -80,23 +113,35 @@ export function useGameState(userId, puzzle, answerGolfer) {
 				const newLevel = getCurrentVideoLevel(gameMode, guessNumber);
 				setCurrentLevel(newLevel);
 
-				setGameOver(guessResult.gameOver);
-				setWon(guessResult.isCorrect);
+				setGameOver(isGameOver);
+				setWon(isCorrect);
 
 				// Save game state
 				const gameState = {
 					date: puzzle.date,
 					puzzleGolferId: puzzle.golferId,
 					guesses: newGuesses,
-					gameOver: guessResult.gameOver,
-					won: guessResult.isCorrect,
+					gameOver: isGameOver,
+					won: isCorrect,
 					mode: gameMode,
 				};
 				setCurrentGame(gameState);
 
-				// Update stats if game is over
-				if (guessResult.gameOver) {
-					updateUserStats(guessResult.isCorrect, guessNumber);
+				// If game is over, submit to backend and update stats (only for daily mode, not unlimited)
+				if (isGameOver && !isUnlimitedMode) {
+					try {
+						// Get array of just the golfer IDs for backend
+						const guessedGolferIds = newGuesses.map((g) => g.golfer.playerId);
+
+						// Submit to backend
+						await submitGuessAPI(userId, guessGolfer.playerId, guessNumber, guessedGolferIds);
+
+						// Update stats
+						updateUserStats(isCorrect, guessNumber);
+					} catch (apiError) {
+						console.error("Error saving game to backend:", apiError);
+						// Continue even if backend fails - local state is already updated
+					}
 				}
 			} catch (error) {
 				console.error("Error submitting guess:", error);
@@ -104,7 +149,7 @@ export function useGameState(userId, puzzle, answerGolfer) {
 				setSubmitting(false);
 			}
 		},
-		[puzzle, answerGolfer, guesses, gameOver, gameMode, maxGuesses, userId, setCurrentGame, submitting]
+		[puzzle, answerGolfer, guesses, gameOver, gameMode, maxGuesses, userId, setCurrentGame, submitting, isUnlimitedMode]
 	);
 
 	// Change game mode

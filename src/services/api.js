@@ -1,11 +1,12 @@
 import { config } from "../config";
+import { getTodayDate } from "../utils/helpers";
 
 /**
  * Fetch daily puzzle from backend
  */
-export async function fetchDailyPuzzle() {
+export async function fetchDailyPuzzle(date = getTodayDate()) {
 	try {
-		const response = await fetch(config.api.getDailyPuzzle, {
+		const response = await fetch(`${config.api.getDailyPuzzle}?date=${date}`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -38,7 +39,7 @@ export async function submitGuess(userId, golferId, guessNumber, guessedGolferId
 				userId,
 				guessedGolferId: golferId,
 				guessCount: guessNumber,
-                guessedGolferIds: guessedGolferIds,
+				guessedGolferIds: guessedGolferIds,
 			}),
 		});
 
@@ -72,3 +73,23 @@ export async function fetchGolfers() {
 		throw error;
 	}
 }
+
+
+// export async function fetchRandomPuzzle(golfers, excludeIds = []) {
+// 	try {
+// 		const randomDate = getRandomDate();
+// 		// Filter out already used golfers
+// 		const availableGolfers = golfers.filter((g) => !excludeIds.includes(g.id));
+
+// 		if (availableGolfers.length === 0) {
+// 			// If all golfers have been used, reset and allow all
+// 			return getRandomGolfer(golfers);
+// 		}
+
+// 		return getRandomGolfer(availableGolfers);
+// 	} catch (error) {
+// 		console.error("Error generating random puzzle:", error);
+// 		throw error;
+// 	}
+// }
+

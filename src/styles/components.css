@@ -66,6 +66,34 @@
 	background-color: var(--bg-hover);
 }
 
+/* Unlimited Mode Buttons in Header */
+.unlimited-toggle-button,
+.back-to-daily-button {
+	background-color: var(--accent-primary);
+	color: white;
+	padding: var(--spacing-sm) var(--spacing-md);
+	border-radius: var(--radius-md);
+	font-weight: 600;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.unlimited-toggle-button:hover,
+.back-to-daily-button:hover {
+	background-color: var(--accent-hover);
+}
+
+.back-to-daily-button {
+	background-color: var(--bg-tertiary);
+	color: var(--text-primary);
+	border: 1px solid var(--border-color);
+}
+
+.back-to-daily-button:hover {
+	background-color: var(--bg-hover);
+}
+
 /* Video Player */
 .video-section {
 	margin-bottom: var(--spacing-xl);
@@ -123,6 +151,16 @@
 	padding: var(--spacing-md);
 	background-color: var(--bg-secondary);
 	border-radius: var(--radius-md);
+}
+
+/* Unlimited Mode Banner */
+.unlimited-mode-banner {
+	color: white;
+	padding: var(--spacing-md);
+	border-radius: var(--radius-md);
+	text-align: center;
+	font-weight: 700;
+	margin-bottom: var(--spacing-lg);
 }
 
 .mode-indicator,
@@ -315,6 +353,16 @@
 
 .stat-cell.higher,
 .stat-cell.lower {
+	background-color: var(--bg-tertiary);
+	color: var(--text-tertiary);
+}
+
+.stat-cell.close-higher {
+	background-color: var(--accent-yellow);
+	color: var(--bg-primary);
+}
+
+.stat-cell.close-lower {
 	background-color: var(--accent-yellow);
 	color: var(--bg-primary);
 }
@@ -342,6 +390,25 @@
 
 .show-result-button:hover {
 	background-color: var(--accent-hover);
+}
+
+/* Next Puzzle Button (Unlimited Mode) */
+.next-puzzle-button {
+	display: block;
+	margin: var(--spacing-md) auto;
+	padding: var(--spacing-md) var(--spacing-xl);
+	background-color: #1e7e34;
+	color: white;
+	border-radius: var(--radius-md);
+	font-weight: 700;
+	font-size: 1rem;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.next-puzzle-button:hover {
+	background-color: #155d27;
 }
 
 /* Modal */
@@ -586,6 +653,26 @@
 	text-align: center;
 	color: var(--text-secondary);
 	font-style: italic;
+	margin-bottom: var(--spacing-md);
+}
+
+/* Unlimited Mode Button in Modal */
+.unlimited-button {
+	width: 100%;
+	padding: var(--spacing-md) var(--spacing-lg);
+	background-color: var(--accent-primary);
+	color: white;
+	border-radius: var(--radius-md);
+	font-weight: 700;
+	font-size: 1rem;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	margin-top: var(--spacing-sm);
+}
+
+.unlimited-button:hover {
+	background-color: var(--accent-hover);
 }
 
 /* Responsive */

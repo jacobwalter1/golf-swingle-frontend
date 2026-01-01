@@ -1,6 +1,16 @@
 import { GAME_MODES, MODE_CONFIG } from "../utils/constants";
 
-export function GameOverModal({ isOpen, won, answerGolfer, guessCount, onClose, gameMode, onChangeMode }) {
+export function GameOverModal({
+	isOpen,
+	won,
+	answerGolfer,
+	guessCount,
+	onClose,
+	gameMode,
+	isUnlimitedMode,
+	onPlayUnlimited,
+	onNextPuzzle,
+}) {
 	if (!isOpen) return null;
 
 	return (
@@ -23,7 +33,7 @@ export function GameOverModal({ isOpen, won, answerGolfer, guessCount, onClose, 
 						</div>
 					) : (
 						<div className="lose-message">
-							<p className="better-luck">Better luck tomorrow!</p>
+							<p className="better-luck">{isUnlimitedMode ? "Better luck next time!" : "Better luck tomorrow!"}</p>
 						</div>
 					)}
 
@@ -52,7 +62,25 @@ export function GameOverModal({ isOpen, won, answerGolfer, guessCount, onClose, 
 						</p>
 					</div>
 
-					<p className="next-game">Come back tomorrow for a new puzzle! 🏌️</p>
+					{!isUnlimitedMode ? (
+						<>
+							<p className="next-game">Come back tomorrow for a new puzzle! 🏌️</p>
+							{onPlayUnlimited && (
+								<button className="unlimited-button" onClick={onPlayUnlimited}>
+									🎮 Play Unlimited Mode
+								</button>
+							)}
+						</>
+					) : (
+						<>
+							<p className="next-game">Ready for another challenge?</p>
+							{onNextPuzzle && (
+								<button className="unlimited-button" onClick={onNextPuzzle}>
+									Next Puzzle ➡️
+								</button>
+							)}
+						</>
+					)}
 				</div>
 			</div>
 		</div>

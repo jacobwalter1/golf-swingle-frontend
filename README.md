@@ -238,9 +238,9 @@ Backend URLs are configured in `.env.local`.
 
 - [x] Change the comparison to only make close answers orange
 - [x] Create an unlimited mode that will allow users to go to past puzzles
-- [] Look into adding more golfers possibly even women and youtube golfers.
-- [] Create function that will show user data from the backend
-- [] Add authorization and profiles
+- [ ] Look into adding more golfers possibly even women and youtube golfers.
+- [ ] Create function that will show user data from the backend
+- [ ] Add authorization and profiles
 - [x] Create Timer to show when next puzzle is
-- [] Add easy and hard mode to unlimited puzzles
+- [ ] Add easy and hard mode to unlimited puzzles
  

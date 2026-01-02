@@ -1,4 +1,5 @@
 import { GAME_MODES, MODE_CONFIG } from "../utils/constants";
+import { useCountdown } from "../hooks/useCountdown";
 
 export function GameOverModal({
 	isOpen,
@@ -11,6 +12,8 @@ export function GameOverModal({
 	onPlayUnlimited,
 	onNextPuzzle,
 }) {
+	const countdown = useCountdown();
+
 	if (!isOpen) return null;
 
 	return (
@@ -64,7 +67,26 @@ export function GameOverModal({
 
 					{!isUnlimitedMode ? (
 						<>
-							<p className="next-game">Come back tomorrow for a new puzzle! 🏌️</p>
+							<div className="countdown-container">
+								<p className="countdown-label">Next puzzle in:</p>
+								<div className="countdown-timer">
+									<div className="countdown-segment">
+										<span className="countdown-value">{countdown.hours}</span>
+										<span className="countdown-unit">hours</span>
+									</div>
+									<div className="countdown-separator">:</div>
+									<div className="countdown-segment">
+										<span className="countdown-value">{countdown.minutes}</span>
+										<span className="countdown-unit">minutes</span>
+									</div>
+									<div className="countdown-separator">:</div>
+									<div className="countdown-segment">
+										<span className="countdown-value">{countdown.seconds}</span>
+										<span className="countdown-unit">seconds</span>
+									</div>
+								</div>
+							</div>
+							<p className="next-game">Or play unlimited mode below! 🏌️</p>
 							{onPlayUnlimited && (
 								<button className="unlimited-button" onClick={onPlayUnlimited}>
 									🎮 Play Unlimited Mode

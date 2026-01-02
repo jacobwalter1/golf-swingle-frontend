@@ -1,11 +1,22 @@
 import { GAME_MODES, MODE_CONFIG } from "../utils/constants";
+import { useCountdown } from "../hooks/useCountdown";
 
 export function Header({ onShowStats, gameMode, onChangeMode, dailyPuzzleComplete, isUnlimitedMode, onPlayUnlimited, onBackToDaily }) {
+	const countdown = useCountdown();
+
 	return (
 		<header className="header">
 			<div className="header-content">
 				<div className="header-left">
 					<h1 className="logo">⛳ Golf Swingle</h1>
+					{dailyPuzzleComplete && !isUnlimitedMode && (
+						<div className="header-countdown">
+							<span className="countdown-text">Next puzzle:</span>
+							<span className="countdown-time">
+								{countdown.hours}:{countdown.minutes}:{countdown.seconds}
+							</span>
+						</div>
+					)}
 				</div>
 				<div className="header-right">
 					{dailyPuzzleComplete && !isUnlimitedMode && (

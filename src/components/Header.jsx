@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { GAME_MODES, MODE_CONFIG } from "../utils/constants";
 import { useCountdown } from "../hooks/useCountdown";
 
@@ -8,7 +9,9 @@ export function Header({ onShowStats, gameMode, onChangeMode, dailyPuzzleComplet
 		<header className="header">
 			<div className="header-content">
 				<div className="header-left">
-					<h1 className="logo">⛳ Golf Swingle</h1>
+					<Link to="/" className="logo-link">
+						<h1 className="logo">⛳ Golf Swingle</h1>
+					</Link>
 					{dailyPuzzleComplete && !isUnlimitedMode && (
 						<div className="header-countdown">
 							<span className="countdown-text">Next puzzle:</span>
@@ -19,14 +22,17 @@ export function Header({ onShowStats, gameMode, onChangeMode, dailyPuzzleComplet
 					)}
 				</div>
 				<div className="header-right">
+					<Link to="/" className="home-button">
+						Home
+					</Link>
 					{dailyPuzzleComplete && !isUnlimitedMode && (
 						<button className="unlimited-toggle-button" onClick={onPlayUnlimited}>
-							🎮 Play Unlimited
+							Play Unlimited
 						</button>
 					)}
 					{isUnlimitedMode && (
 						<button className="back-to-daily-button" onClick={onBackToDaily}>
-							🏠 Back to Daily
+							Back to Daily
 						</button>
 					)}
 					<select
@@ -44,7 +50,7 @@ export function Header({ onShowStats, gameMode, onChangeMode, dailyPuzzleComplet
 							))}
 					</select>
 					<button className="stats-button" onClick={onShowStats}>
-						📊 Stats
+						Stats
 					</button>
 				</div>
 			</div>
